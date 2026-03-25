@@ -1,19 +1,28 @@
 <template>
   <div class="app-header-navigation">
-    <RouterLink :to="{ name: RouteName.Transactions }" class="app-header-navigation__item">
-      <HouseIcon class="app-header-navigation__icon" />
+    <RouterLink
+      :to="{ name: RouteName.Transactions }"
+      class="app-header-navigation__item"
+    >
+      <IconReportMoney color="black" />
 
       <span class="app-header-navigation__text">Главная</span>
     </RouterLink>
 
-    <RouterLink :to="{ name: RouteName.Categories }" class="app-header-navigation__item">
-      <CategoriesIcon class="app-header-navigation__icon" />
+    <RouterLink
+      :to="{ name: RouteName.Categories }"
+      class="app-header-navigation__item"
+    >
+      <IconCategory color="black" />
 
       <span class="app-header-navigation__text">Категории</span>
     </RouterLink>
 
-    <RouterLink :to="{ name: RouteName.Profile }" class="app-header-navigation__item">
-      <ProfileIcon class="app-header-navigation__icon" />
+    <RouterLink
+      :to="{ name: RouteName.Profile }"
+      class="app-header-navigation__item"
+    >
+      <IconUser color="black" />
 
       <span class="app-header-navigation__text">Профиль</span>
     </RouterLink>
@@ -22,9 +31,7 @@
 
 <script setup lang="ts">
 import { RouteName } from '@/constants/RouteName';
-import HouseIcon from '@/assets/icons/HouseIcon.vue';
-import CategoriesIcon from '@/assets/icons/CategoriesIcon.vue';
-import ProfileIcon from '@/assets/icons/ProfileIcon.vue';
+import { IconReportMoney, IconCategory, IconUser } from '@tabler/icons-vue';
 </script>
 
 <style scoped lang="scss">
@@ -46,10 +53,6 @@ import ProfileIcon from '@/assets/icons/ProfileIcon.vue';
     &.router-link-exact-active {
       background-color: var(--color-neutral-200);
     }
-  }
-
-  &__icon {
-
   }
 
   &__text {

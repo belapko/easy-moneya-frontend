@@ -27,6 +27,20 @@ export default defineConfigWithVueTs(
     files: ['**/*.vue'],
     rules: {
       'vue/block-order': ['error', { order: ['template', 'script', 'style'] }],
+      'vue/first-attribute-linebreak': [
+        'error',
+        {
+          singleline: 'ignore',
+          multiline: 'below',
+        },
+      ],
+      'vue/max-attributes-per-line': [
+        'error',
+        {
+          singleline: 1,
+          multiline: 1,
+        },
+      ],
     },
   },
   vueTsConfigs.recommended,

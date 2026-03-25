@@ -1,15 +1,21 @@
 <template>
   <div class="app-header-logo">
-    <WalletIcon class="app-header-logo__icon" />
+    <IconWallet
+      color="black"
+      size="32"
+    />
 
-    <RouterLink :to="{ name: RouteName.Transactions }" class="app-header-logo__title">
+    <RouterLink
+      :to="{ name: RouteName.Transactions }"
+      class="app-header-logo__title"
+    >
       easy-money
     </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
-import WalletIcon from '@/assets/icons/WalletIcon.vue';
+import { IconWallet } from '@tabler/icons-vue';
 import { RouteName } from '@/constants/RouteName.ts';
 </script>
 
@@ -17,11 +23,7 @@ import { RouteName } from '@/constants/RouteName.ts';
 .app-header-logo {
   display: flex;
   align-items: center;
-  column-gap: calc(var(--gutter) * 2);
-
-  &__icon {
-    font-size: var(--text-size-xxxl);
-  }
+  column-gap: var(--gutter);
 
   &__title {
     font-size: var(--text-size-l);
