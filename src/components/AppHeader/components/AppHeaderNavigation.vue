@@ -1,7 +1,7 @@
 <template>
   <div class="app-header-navigation">
     <RouterLink
-      :to="{ name: RouteName.Transactions }"
+      :to="{ name: RouteName.TRANSACTIONS }"
       class="app-header-navigation__item"
     >
       <IconReportMoney color="black" />
@@ -10,7 +10,7 @@
     </RouterLink>
 
     <RouterLink
-      :to="{ name: RouteName.Categories }"
+      :to="{ name: RouteName.CATEGORIES }"
       class="app-header-navigation__item"
     >
       <IconCategory color="black" />
@@ -19,7 +19,7 @@
     </RouterLink>
 
     <RouterLink
-      :to="{ name: RouteName.Profile }"
+      :to="{ name: RouteName.PROFILE }"
       class="app-header-navigation__item"
     >
       <IconUser color="black" />

@@ -6,7 +6,7 @@
     />
 
     <RouterLink
-      :to="{ name: RouteName.Transactions }"
+      :to="{ name: RouteName.TRANSACTIONS }"
       class="app-header-logo__title"
     >
       easy-money

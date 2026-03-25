@@ -4,13 +4,13 @@
     :style="maxTabWidth ? { '--ui-tab-width': `${maxTabWidth}px` } : undefined"
   >
     <button
-      v-for="tab in tabs"
-      :key="tab.value"
+      v-for="(tab, value) in tabs"
+      :key="value"
       ref="tabButtons"
       type="button"
-      @click="setActiveTab(tab.value)"
+      @click="setActiveTab(value)"
       class="ui-tabs__tab"
-      :class="uiTabsTabClasses(tab.value)"
+      :class="uiTabsTabClasses(value)"
     >
       {{ tab.label }}
     </button>
@@ -21,10 +21,7 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue';
 
 const { tabs } = defineProps<{
-  tabs: Array<{
-    label: string
-    value: string
-  }>
+  tabs: Record<string, {label: string}>;
 }>();
 
 const activeTab = defineModel<string>({ required: true });
@@ -72,7 +69,6 @@ watch(() => tabs, updateTabWidth);
     width: var(--ui-tab-width, auto);
     padding: var(--ui-tab-gutter, var(--gutter)) var(--ui-tab-gutter, calc(var(--gutter) * 10));
     border-radius: var(--border-radius-m);
-    color: var(--color-black);
     font-weight: 500;
     cursor: pointer;
     transition:

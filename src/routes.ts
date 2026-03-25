@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Auth from '@/pages/Auth.vue';
+import AuthPage from '@/pages/AuthPage.vue';
 import Transactions from '@/pages/Transactions.vue';
 import Categories from '@/pages/Categories.vue';
 import Profile from '@/pages/Profile.vue';
 import { RouteName } from '@/constants/RouteName';
 
 const routes = [
-  { path: '/', redirect: { name: RouteName.Transactions } },
-  { path: '/auth', name: RouteName.Auth, component: Auth },
-  { path: '/transactions', name: RouteName.Transactions, component: Transactions },
-  { path: '/categories', name: RouteName.Categories, component: Categories },
-  { path: '/profile', name: RouteName.Profile, component: Profile },
+  { path: '/', redirect: { name: RouteName.TRANSACTIONS } },
+  { path: '/auth', name: RouteName.AUTH, component: AuthPage },
+  { path: '/transactions', name: RouteName.TRANSACTIONS, component: Transactions },
+  { path: '/categories', name: RouteName.CATEGORIES, component: Categories },
+  { path: '/profile', name: RouteName.PROFILE, component: Profile },
 ];
 
 export const router = createRouter({

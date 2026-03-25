@@ -35,18 +35,12 @@
   --text-size-xxl: 24px;
   --text-size-xxxl: 30px;
 
-  --text-line-height-xs: 1.3334;
-  --text-line-height-s: 1.4286;
-  --text-line-height-m: 1.5;
-  --text-line-height-l: 1.3334;
-  --text-line-height-xl: 1.4;
-  --text-line-height-xxl: 1.3334;
-  --text-line-height-xxxl: 1.2;
+  --header-height: 64px;
 }
 
 body {
   min-height: 100vh;
-  color: var(--color-neutral-500);
+  color: var(--color-black);
   background: var(--color-neutral-50);
   font-family:
     Inter,
@@ -63,5 +57,5 @@ body {
     sans-serif;
   font-size: var(--text-size-m);
   font-weight: normal;
-  line-height: var(--text-line-height-m);
+  line-height: 120%;
 }

@@ -9,8 +9,14 @@ import pluginOxlint from 'eslint-plugin-oxlint';
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+
+  ...pluginVue.configs['flat/essential'],
+  vueTsConfigs.recommended,
+
+  ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
   {
-    name: 'app/files-to-lint',
+    name: 'app/code-style',
     files: ['**/*.{vue,ts,mts,tsx}'],
     rules: {
       'object-curly-spacing': ['error', 'always'],
@@ -18,10 +24,6 @@ export default defineConfigWithVueTs(
       semi: ['error', 'always'],
     },
   },
-
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
-  ...pluginVue.configs['flat/essential'],
   {
     name: 'app/vue-block-order',
     files: ['**/*.vue'],
@@ -43,7 +45,20 @@ export default defineConfigWithVueTs(
       ],
     },
   },
-  vueTsConfigs.recommended,
-
-  ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+  {
+    name: 'app/unused-vars',
+    files: ['**/*.{vue,ts,mts,tsx}'],
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
 );

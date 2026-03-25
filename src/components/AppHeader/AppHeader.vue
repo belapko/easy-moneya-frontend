@@ -17,8 +17,6 @@ import AppHeaderNavigation from '@/components/AppHeader/components/AppHeaderNavi
   border-bottom: 1px solid var(--color-neutral-200);
   display: flex;
   justify-content: space-around;
-  height: 64px;
-
-
+  height: var(--header-height);
 }
 </style>
