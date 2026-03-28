@@ -4,7 +4,7 @@
     class="auth-form-login__form"
   >
     <UiInput
-      v-model="email"
+      v-model.trim="email"
       type="text"
       placeholder="your@email.com"
       :isError="isEmailError"
@@ -15,7 +15,8 @@
 
     <UiInput
       v-model="password"
-      type="password"
+      v-model:isToggled="isPasswordVisible"
+      :type="passwordInputType"
       placeholder="••••••••"
       :isError="isPasswordError"
       @blur="handlePasswordBlur"
@@ -34,14 +35,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import { useValidatedField } from '@/components/AuthForm/composables/useValidatedField';
 import { hasMinPasswordLength, isEmail } from '@/components/AuthForm/utils/authValidators';
 import { AuthFormTypes } from '@/types/authForm.ts';
 import { useUserStore } from '@/stores/user.ts';
-import { IconEye, IconEyeOff } from '@tabler/icons-vue';
 
 const userStore = useUserStore();
 
@@ -59,11 +59,12 @@ const {
   handleBlur: handlePasswordBlur,
 } = useValidatedField(hasMinPasswordLength);
 
+const isPasswordVisible = ref(false);
+const passwordInputType = computed(() => isPasswordVisible.value ? 'text' : 'password');
+
 const isButtonDisabled = computed(() => userStore.isLoading || !isEmailValid.value || !isPasswordValid.value);
 
 const handleSubmit = async () => {
-  email.value = email.value.trim();
-
   if (isButtonDisabled.value) {
     return;
   }

@@ -4,7 +4,7 @@
       class="auth-form-register__form"
     >
       <UiInput
-        v-model="email"
+        v-model.trim="email"
         type="text"
         placeholder="your@email.com"
         :isError="isEmailError"
@@ -15,7 +15,8 @@
 
       <UiInput
         v-model="password"
-        type="password"
+        v-model:isToggled="isPasswordVisible"
+        :type="passwordInputType"
         placeholder="••••••••"
         :isError="isPasswordError"
         @blur="handlePasswordBlur"
@@ -35,7 +36,8 @@
 
       <UiInput
         v-model="repeatedPassword"
-        type="password"
+        v-model:isToggled="isPasswordVisible"
+        :type="passwordInputType"
         placeholder="••••••••"
         :isError="isRepeatedPasswordError"
         @blur="handleRepeatedPasswordBlur"
@@ -61,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import { useValidatedField } from '@/components/AuthForm/composables/useValidatedField';
@@ -92,6 +94,9 @@ const {
   handleBlur: handleRepeatedPasswordBlur,
 } = useValidatedField((value) => value.length > 0 && value === password.value);
 
+const isPasswordVisible = ref(false);
+const passwordInputType = computed(() => isPasswordVisible.value ? 'text' : 'password');
+
 const passwordValidationRules = computed(() => getPasswordValidationRules(password.value));
 
 const isButtonDisabled = computed(() => userStore.isLoading || !isEmailValid.value || !isPasswordValid.value || !isRepeatedPasswordValid.value);
@@ -101,8 +106,6 @@ const authFormRuleClasses = (isValid: boolean) => ({
 });
 
 const handleSubmit = async () => {
-  email.value = email.value.trim();
-
   if (isButtonDisabled.value) {
     return;
   }

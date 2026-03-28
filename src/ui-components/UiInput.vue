@@ -21,23 +21,23 @@
         :class="uiInputFieldClasses"
       >
 
-      <template v-if="isToggling" >
-        <IconEye
+      <button
+        v-if="hasToggleModel"
+        type="button"
+        @click="isToggled = !isToggled"
+        class="ui-input__eye"
+      >
+        <component
+          :is="iconComponent"
           :size="16"
-          class="auth-form-login__eye"
         />
-
-        <IconEyeOff
-          :size="16"
-          class="auth-form-login__eye"
-        />
-      </template>
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, useAttrs, useId } from 'vue';
+import { computed, getCurrentInstance, useAttrs, useId } from 'vue';
 import { IconEye, IconEyeOff } from '@tabler/icons-vue';
 
 defineOptions({
@@ -45,16 +45,23 @@ defineOptions({
 });
 
 const {
-  isToggling = false,
   isError = true
 } = defineProps<{
-  isToggling: boolean
   isError?: boolean
 }>();
 
-const inputValue = defineModel<string | number | null>({ required: true });
+const inputValue = defineModel<string>({ required: true });
+const isToggled = defineModel<boolean>('isToggled', { default: false });
 const attrs = useAttrs();
 const fallbackId = useId();
+const instance = getCurrentInstance();
+
+const hasToggleModel = computed(() => {
+  const vNodeProps = instance?.vnode.props ?? {};
+  return 'isToggled' in vNodeProps || 'onUpdate:isToggled' in vNodeProps;
+});
+
+const iconComponent = computed(() => isToggled.value ? IconEye : IconEyeOff);
 
 const uiInputRootClasses = computed(() => attrs.class);
 const uiInputRootStyles = computed(() => attrs.style);
@@ -86,6 +93,10 @@ const uiInputFieldClasses = computed(() => ({
     font-size: var(--text-size-s);
   }
 
+  &__wrapper {
+    position: relative;
+  }
+
   &__field {
     margin-top: var(--gutter);
     border: none;
@@ -103,6 +114,14 @@ const uiInputFieldClasses = computed(() => ({
     &:focus:not(&--is-error) {
       outline: 1px solid var(--color-neutral-300);
     }
+  }
+
+  &__eye {
+    position: absolute;
+    right: calc(var(--gutter) * 2);
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
   }
 }
 </style>
