@@ -1,5 +1,8 @@
 <template>
-    <form class="auth-form-register__form">
+    <form
+      @submit.prevent="handleSubmit"
+      class="auth-form-register__form"
+    >
       <UiInput
         v-model="email"
         type="text"
@@ -63,6 +66,10 @@ import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import { useValidatedField } from '@/components/AuthForm/composables/useValidatedField';
 import { getPasswordValidationRules, isEmail, isStrongPassword } from '@/components/AuthForm/utils/authValidators';
+import { useUserStore } from '@/stores/user.ts';
+import { AuthFormTypes } from '@/types/authForm.ts';
+
+const userStore = useUserStore();
 
 const {
   value: email,
@@ -87,11 +94,24 @@ const {
 
 const passwordValidationRules = computed(() => getPasswordValidationRules(password.value));
 
-const isButtonDisabled = computed(() => !isEmailValid.value || !isPasswordValid.value || !isRepeatedPasswordValid.value);
+const isButtonDisabled = computed(() => userStore.isLoading || !isEmailValid.value || !isPasswordValid.value || !isRepeatedPasswordValid.value);
 
 const authFormRuleClasses = (isValid: boolean) => ({
   'auth-form-register__rule--is-valid': isValid,
 });
+
+const handleSubmit = async () => {
+  email.value = email.value.trim();
+
+  if (isButtonDisabled.value) {
+    return;
+  }
+
+  await userStore.fetchAuth(AuthFormTypes.REGISTER, {
+    email: email.value,
+    password: password.value,
+  });
+};
 </script>
 
 <style scoped lang="scss">

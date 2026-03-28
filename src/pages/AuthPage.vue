@@ -22,11 +22,13 @@ import AuthForm from '@/components/AuthForm/AuthForm.vue';
 
 <style scoped lang="scss">
 .auth-page {
-  height: calc(100dvh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));
+  padding: clamp(calc(var(--gutter) * 4), 4vw, calc(var(--gutter) * 8));
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  box-sizing: border-box;
 
   &__icon {
     padding: calc(var(--gutter) * 3);

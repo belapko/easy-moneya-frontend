@@ -1,5 +1,8 @@
 <template>
-  <form class="auth-form-login__form">
+  <form
+    @submit.prevent="handleSubmit"
+    class="auth-form-login__form"
+  >
     <UiInput
       v-model="email"
       type="text"
@@ -36,6 +39,10 @@ import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import { useValidatedField } from '@/components/AuthForm/composables/useValidatedField';
 import { hasMinPasswordLength, isEmail } from '@/components/AuthForm/utils/authValidators';
+import { AuthFormTypes } from '@/types/authForm.ts';
+import { useUserStore } from '@/stores/user.ts';
+
+const userStore = useUserStore();
 
 const {
   value: email,
@@ -51,7 +58,20 @@ const {
   handleBlur: handlePasswordBlur,
 } = useValidatedField(hasMinPasswordLength);
 
-const isButtonDisabled = computed(() => !isEmailValid.value || !isPasswordValid.value);
+const isButtonDisabled = computed(() => userStore.isLoading || !isEmailValid.value || !isPasswordValid.value);
+
+const handleSubmit = async () => {
+  email.value = email.value.trim();
+
+  if (isButtonDisabled.value) {
+    return;
+  }
+
+  await userStore.fetchAuth(AuthFormTypes.LOGIN, {
+    email: email.value,
+    password: password.value,
+  });
+};
 </script>
 
 <style scoped lang="scss">

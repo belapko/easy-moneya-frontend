@@ -25,7 +25,7 @@
 
   &:disabled {
     cursor: default;
-    background-color: var(--color-neutral-700);
+    background-color: var(--color-neutral-500);
   }
 }
 </style>

@@ -6,8 +6,9 @@
     />
 
     <component
-:is="TABS[activeTab].component"
-class="auth-form__content" />
+      :is="TABS[activeTab].component"
+      class="auth-form__content"
+    />
   </div>
 </template>
 
@@ -16,30 +17,26 @@ import UiTabs from '@/ui-components/UiTabs.vue';
 import { ref } from 'vue';
 import AuthFormRegister from '@/components/AuthForm/components/AuthFormRegister.vue';
 import AuthFormLogin from '@/components/AuthForm/components/AuthFormLogin.vue';
-
-enum AuthFormValue {
-  LOGIN = 'login',
-  REGISTER = 'register',
-}
+import { AuthFormTypes } from '@/types/authForm.ts';
 
 const TABS = {
-  [AuthFormValue.LOGIN]: {
+  [AuthFormTypes.LOGIN]: {
     label: 'Вход',
     component: AuthFormLogin,
   },
-  [AuthFormValue.REGISTER]: {
+  [AuthFormTypes.REGISTER]: {
     label: 'Регистрация',
     component: AuthFormRegister,
   }
 };
 
-const activeTab = ref<AuthFormValue>(AuthFormValue.LOGIN);
+const activeTab = ref<AuthFormTypes>(AuthFormTypes.LOGIN);
 </script>
 
 <style scoped lang="scss">
 .auth-form {
+  width: min(100%, 24rem);
   padding: calc(var(--gutter) * 10) calc(var(--gutter) * 8);
-  display: inline-block;
   background-color: var(--color-white);
   border-radius: var(--border-radius-m);
   box-shadow: 0 5px 10px 2px var(--color-neutral-200);
