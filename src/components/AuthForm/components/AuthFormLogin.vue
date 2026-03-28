@@ -41,6 +41,7 @@ import { useValidatedField } from '@/components/AuthForm/composables/useValidate
 import { hasMinPasswordLength, isEmail } from '@/components/AuthForm/utils/authValidators';
 import { AuthFormTypes } from '@/types/authForm.ts';
 import { useUserStore } from '@/stores/user.ts';
+import { IconEye, IconEyeOff } from '@tabler/icons-vue';
 
 const userStore = useUserStore();
 
@@ -77,7 +78,14 @@ const handleSubmit = async () => {
 <style scoped lang="scss">
 .auth-form-login {
   &__password {
+    position: relative;
     margin-top: calc(var(--gutter) * 2);
+  }
+
+  &__eye {
+    position: absolute;
+    top: 0;
+    right: var(--gutter);
   }
 
   &__button {

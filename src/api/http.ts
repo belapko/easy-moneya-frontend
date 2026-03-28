@@ -67,5 +67,9 @@ export async function http<T>(url: string, options: HttpOptions = {}): Promise<T
     throw await createApiError(response);
   }
 
+  if (response.status === 204) {
+    return undefined as T;
+  }
+
   return response.json();
 }

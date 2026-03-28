@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import AuthPage from '@/pages/AuthPage.vue';
 import Transactions from '@/pages/Transactions.vue';
 import Categories from '@/pages/Categories.vue';
@@ -6,10 +6,10 @@ import Profile from '@/pages/Profile.vue';
 import { RouteName } from '@/constants/RouteName.ts';
 import { RouteMeta } from '@/constants/RouteMeta.ts';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: { name: RouteName.TRANSACTIONS }
+    redirect: { name: RouteName.TRANSACTIONS },
   },
   {
     path: '/auth',
@@ -21,7 +21,7 @@ const routes = [
     name: RouteName.TRANSACTIONS,
     component: Transactions,
     meta: {
-      [RouteMeta.ONLY_AUTHORIZED]: true
+      [RouteMeta.ONLY_AUTHORIZED]: true,
     },
   },
   {
@@ -29,7 +29,7 @@ const routes = [
     name: RouteName.CATEGORIES,
     component: Categories,
     meta: {
-      [RouteMeta.ONLY_AUTHORIZED]: true
+      [RouteMeta.ONLY_AUTHORIZED]: true,
     },
   },
   {
@@ -37,7 +37,7 @@ const routes = [
     name: RouteName.PROFILE,
     component: Profile,
     meta: {
-      [RouteMeta.ONLY_AUTHORIZED]: true
+      [RouteMeta.ONLY_AUTHORIZED]: true,
     },
   },
 ];

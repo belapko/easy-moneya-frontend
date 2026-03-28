@@ -14,3 +14,7 @@ export async function postLogin({ email, password }: { email: string; password: 
     body: { email, password },
   });
 }
+
+export async function postLogout() {
+  return http('/api/auth/logout', { method: 'POST' });
+}

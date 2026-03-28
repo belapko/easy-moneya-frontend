@@ -12,26 +12,43 @@
       <slot />
     </label>
 
-    <input
-      v-model="inputValue"
-      :id="inputId"
-      v-bind="uiInputAttrs"
-      class="ui-input__field"
-      :class="uiInputFieldClasses"
-    >
+    <div class="ui-input__wrapper">
+      <input
+        v-model="inputValue"
+        :id="inputId"
+        v-bind="uiInputAttrs"
+        class="ui-input__field"
+        :class="uiInputFieldClasses"
+      >
+
+      <template v-if="isToggling" >
+        <IconEye
+          :size="16"
+          class="auth-form-login__eye"
+        />
+
+        <IconEyeOff
+          :size="16"
+          class="auth-form-login__eye"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, useAttrs, useId } from 'vue';
+import { IconEye, IconEyeOff } from '@tabler/icons-vue';
 
 defineOptions({
   inheritAttrs: false,
 });
 
 const {
+  isToggling = false,
   isError = true
 } = defineProps<{
+  isToggling: boolean
   isError?: boolean
 }>();
 

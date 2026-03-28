@@ -26,16 +26,29 @@
 
       <span class="app-header-navigation__text">Профиль</span>
     </RouterLink>
+
+    <button
+      title="Выйти"
+      @click="fetchLogout"
+      class="app-header-navigation__logout"
+    >
+      <IconDoorExit class="app-header-navigation__logout-icon" />
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouteName } from '@/constants/RouteName';
-import { IconReportMoney, IconCategory, IconUser } from '@tabler/icons-vue';
+import { IconReportMoney, IconCategory, IconUser, IconDoorExit } from '@tabler/icons-vue';
+import { useUserStore } from '@/stores/user.ts';
+
+const { fetchLogout } = useUserStore();
 </script>
 
 <style scoped lang="scss">
 .app-header-navigation {
+  $self: &;
+
   display: flex;
   align-items: center;
   column-gap: var(--gutter);
@@ -44,14 +57,20 @@ import { IconReportMoney, IconCategory, IconUser } from '@tabler/icons-vue';
     display: flex;
     align-items: center;
     column-gap: var(--gutter);
+    border: 2px solid transparent;
     border-radius: var(--border-radius-s);
     padding: var(--gutter) calc(var(--gutter) * 3);
     transition:
+      border-color 0.2s ease,
       background-color 0.2s ease,
       color 0.2s ease;
 
     &.router-link-exact-active {
       background-color: var(--color-neutral-200);
+    }
+
+    &:not(.router-link-exact-active):hover {
+      border-color: var(--color-neutral-200);
     }
   }
 
@@ -60,6 +79,24 @@ import { IconReportMoney, IconCategory, IconUser } from '@tabler/icons-vue';
     font-size: var(--text-size-s);
     font-weight: 500;
     line-height: var(--text-line-height-s);
+  }
+
+  &__logout {
+    margin-left: calc(var(--gutter) * 0.5);
+    padding: var(--gutter);
+    border-radius: var(--border-radius-s);
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;;
+
+    &:hover {
+      background-color: var(--color-red-600);
+
+      #{$self}__logout-icon {
+        color: var(--color-white);
+      }
+    }
   }
 }
 </style>

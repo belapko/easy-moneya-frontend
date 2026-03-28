@@ -1,3 +1,3 @@
 export enum RouteMeta {
-  ONLY_AUTHORIZED
+  ONLY_AUTHORIZED = 'onlyAuthorized',
 }
