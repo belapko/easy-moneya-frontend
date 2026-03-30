@@ -4,10 +4,6 @@
   </button>
 </template>
 
-<script setup lang="ts">
-
-</script>
-
 <style scoped lang="scss">
 .ui-button {
   width: 100%;
@@ -16,6 +12,7 @@
   color: var(--color-white);
   font-weight: 500;
   font-size: var(--text-size-s);
+  line-height: var(--text-line-height-s);
   border-radius: var(--border-radius-s);
   cursor: pointer;
 

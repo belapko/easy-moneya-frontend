@@ -5,25 +5,23 @@
     >
       <UiInput
         v-model.trim="email"
+        label="Email"
         type="text"
         placeholder="your@email.com"
         :isError="isEmailError"
         @blur="handleEmailBlur"
-      >
-        Email
-      </UiInput>
+      />
 
       <UiInput
         v-model="password"
         v-model:isToggled="isPasswordVisible"
+        label="Пароль"
         :type="passwordInputType"
         placeholder="••••••••"
         :isError="isPasswordError"
         @blur="handlePasswordBlur"
         class="auth-form-register__password"
-      >
-        Пароль
-      </UiInput>
+      />
 
       <span
         v-for="rule in passwordValidationRules"
@@ -37,14 +35,13 @@
       <UiInput
         v-model="repeatedPassword"
         v-model:isToggled="isPasswordVisible"
+        label="Повторите пароль"
         :type="passwordInputType"
         placeholder="••••••••"
         :isError="isRepeatedPasswordError"
         @blur="handleRepeatedPasswordBlur"
         class="auth-form-register__repeated"
-      >
-        Повторите пароль
-      </UiInput>
+      />
 
       <span
         class="auth-form-register__rule"
@@ -69,7 +66,7 @@ import UiButton from '@/ui-components/UiButton.vue';
 import { useValidatedField } from '@/components/AuthForm/composables/useValidatedField';
 import { getPasswordValidationRules, isEmail, isStrongPassword } from '@/components/AuthForm/utils/authValidators';
 import { useUserStore } from '@/stores/user.ts';
-import { AuthFormTypes } from '@/types/authForm.ts';
+import { AuthFormTypes } from '@/constants/AuthForm.ts';
 
 const userStore = useUserStore();
 
@@ -134,6 +131,7 @@ const handleSubmit = async () => {
   &__rule {
     color: var(--color-neutral-400);
     font-size: var(--text-size-xs);
+    line-height: var(--text-line-height-xs);
 
     &--is-valid {
       color: var(--color-green-600);

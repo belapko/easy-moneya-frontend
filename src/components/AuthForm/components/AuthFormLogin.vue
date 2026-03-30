@@ -5,25 +5,23 @@
   >
     <UiInput
       v-model.trim="email"
+      label="Email"
       type="text"
       placeholder="your@email.com"
       :isError="isEmailError"
       @blur="handleEmailBlur"
-    >
-      Email
-    </UiInput>
+    />
 
     <UiInput
       v-model="password"
       v-model:isToggled="isPasswordVisible"
+      label="Пароль"
       :type="passwordInputType"
       placeholder="••••••••"
       :isError="isPasswordError"
       @blur="handlePasswordBlur"
       class="auth-form-login__password"
-    >
-      Пароль
-    </UiInput>
+    />
 
     <UiButton
       :disabled="isButtonDisabled"
@@ -40,7 +38,7 @@ import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import { useValidatedField } from '@/components/AuthForm/composables/useValidatedField';
 import { hasMinPasswordLength, isEmail } from '@/components/AuthForm/utils/authValidators';
-import { AuthFormTypes } from '@/types/authForm.ts';
+import { AuthFormTypes } from '@/constants/AuthForm.ts';
 import { useUserStore } from '@/stores/user.ts';
 
 const userStore = useUserStore();

@@ -44,6 +44,7 @@ import AuthForm from '@/components/AuthForm/AuthForm.vue';
   &__subtitle {
     margin-top: calc(var(--gutter) * 4);
     font-size: var(--text-size-s);
+    line-height: var(--text-line-height-s);
     color: var(--color-neutral-500);
     font-weight: 400;
   }

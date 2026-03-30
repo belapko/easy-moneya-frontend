@@ -61,9 +61,9 @@ const { fetchLogout } = useUserStore();
     border-radius: var(--border-radius-s);
     padding: var(--gutter) calc(var(--gutter) * 3);
     transition:
-      border-color 0.2s ease,
-      background-color 0.2s ease,
-      color 0.2s ease;
+      border-color 0.1s ease,
+      background-color 0.1s ease,
+      color 0.1s ease;
 
     &.router-link-exact-active {
       background-color: var(--color-neutral-200);
@@ -87,8 +87,8 @@ const { fetchLogout } = useUserStore();
     border-radius: var(--border-radius-s);
     cursor: pointer;
     transition:
-      background-color 0.2s ease,
-      color 0.2s ease;;
+      background-color 0.1s ease,
+      color 0.1s ease;
 
     &:hover {
       background-color: var(--color-red-600);

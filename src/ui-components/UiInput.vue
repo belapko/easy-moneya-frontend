@@ -5,11 +5,11 @@
     :style="uiInputRootStyles"
   >
     <label
-      v-if="$slots.default"
+      v-if="label"
       :for="inputId"
       class="ui-input__label"
     >
-      <slot />
+      {{ label }}
     </label>
 
     <div class="ui-input__wrapper">
@@ -45,8 +45,10 @@ defineOptions({
 });
 
 const {
+  label = undefined,
   isError = true
 } = defineProps<{
+  label?: string;
   isError?: boolean
 }>();
 
@@ -91,6 +93,7 @@ const uiInputFieldClasses = computed(() => ({
   &__label {
     font-weight: 500;
     font-size: var(--text-size-s);
+    line-height: var(--text-line-height-s);
   }
 
   &__wrapper {
@@ -106,6 +109,7 @@ const uiInputFieldClasses = computed(() => ({
     background-color: var(--color-neutral-100);
     border-radius: var(--border-radius-s);
     font-size: var(--text-size-s);
+    line-height: var(--text-line-height-s);
 
     &--is-error {
       outline: 1px solid var(--color-red-700);
@@ -114,6 +118,16 @@ const uiInputFieldClasses = computed(() => ({
     &:focus:not(&--is-error) {
       outline: 1px solid var(--color-neutral-300);
     }
+  }
+
+  &__field::-webkit-outer-spin-button,
+  &__field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &__field[type=number] {
+    -moz-appearance: textfield;
   }
 
   &__eye {

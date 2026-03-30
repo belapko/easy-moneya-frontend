@@ -6,7 +6,7 @@ import { getMe } from '@/api/user.ts';
 import type { User } from '@/types/user.ts';
 import { IS_USER_REQUESTED } from '@/constants/SessionStorageKey.ts';
 import { postLogin, postLogout, postRegister } from '@/api/auth.ts';
-import { AuthFormTypes } from '@/types/authForm.ts';
+import { AuthFormTypes } from '@/constants/AuthForm.ts';
 import { RouteName } from '@/constants/RouteName.ts';
 import { RouteMeta } from '@/constants/RouteMeta.ts';
 

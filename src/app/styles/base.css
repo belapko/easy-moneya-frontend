@@ -35,6 +35,14 @@
   --text-size-xxl: 24px;
   --text-size-xxxl: 30px;
 
+  --text-line-height-xs: 1.3333;
+  --text-line-height-s: 1.4286;
+  --text-line-height-m: 1.5;
+  --text-line-height-l: 1.5556;
+  --text-line-height-xl: 1.4;
+  --text-line-height-xxl: 1.3333;
+  --text-line-height-xxxl: 1.3333;
+
   --header-height: 64px;
 }
 
@@ -57,5 +65,5 @@ body {
     sans-serif;
   font-size: var(--text-size-m);
   font-weight: normal;
-  line-height: 120%;
+  line-height: var(--text-line-height-m);
 }

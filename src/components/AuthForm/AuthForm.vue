@@ -17,7 +17,7 @@ import UiTabs from '@/ui-components/UiTabs.vue';
 import { ref } from 'vue';
 import AuthFormRegister from '@/components/AuthForm/components/AuthFormRegister.vue';
 import AuthFormLogin from '@/components/AuthForm/components/AuthFormLogin.vue';
-import { AuthFormTypes } from '@/types/authForm.ts';
+import { AuthFormTypes } from '@/constants/AuthForm.ts';
 
 const TABS = {
   [AuthFormTypes.LOGIN]: {
