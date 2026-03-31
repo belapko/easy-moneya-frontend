@@ -1,9 +1,6 @@
 <template>
   <div class="app-header-logo">
-    <IconWallet
-      color="black"
-      size="32"
-    />
+    <IconWallet size="32" />
 
     <RouterLink
       :to="{ name: RouteName.TRANSACTIONS }"
@@ -24,10 +21,11 @@ import { RouteName } from '@/constants/RouteName.ts';
   display: flex;
   align-items: center;
   column-gap: var(--gutter);
+  color: hsl(var(--color-neutral-900));
 
   &__title {
     font-size: var(--text-size-l);
-    color: var(--color-neutral-900);
+    color: inherit;
     font-weight: 500;
     line-height: var(--text-line-height-l);
   }

@@ -202,7 +202,7 @@ onBeforeUnmount(() => {
     border: none;
     outline: none;
     padding: calc(var(--gutter) * 1.5) calc(var(--gutter) * 3);
-    background-color: var(--color-neutral-100);
+    background-color: hsl(var(--color-neutral-100));
     border-radius: var(--border-radius-s);
     font-size: var(--text-size-s);
     line-height: var(--text-line-height-s);
@@ -216,7 +216,7 @@ onBeforeUnmount(() => {
   }
 
   &__icon {
-    color: var(--color-neutral-600);
+    color: hsl(var(--color-neutral-600));
     transition: transform 0.15s ease;
 
     &--is-open {
@@ -230,9 +230,9 @@ onBeforeUnmount(() => {
     right: 0;
     top: 100%;
     z-index: 10;
-    background-color: var(--color-white);
+    background-color: hsl(var(--color-white));
     border-radius: var(--border-radius-s);
-    box-shadow: 0 10px 20px -12px var(--color-neutral-500);
+    box-shadow: 0 10px 20px -12px hsl(var(--color-neutral-500));
   }
 
   &__option {
@@ -245,11 +245,11 @@ onBeforeUnmount(() => {
     transition: background-color 0.1s ease;
 
     &:hover:not(&--is-selected) {
-      background-color: var(--color-neutral-200);
+      background-color: hsl(var(--color-neutral-200));
     }
 
     &--is-selected {
-      background-color: var(--color-green-200);
+      background-color: hsl(var(--color-green-200));
     }
   }
 

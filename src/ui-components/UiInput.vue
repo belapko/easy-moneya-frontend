@@ -106,17 +106,17 @@ const uiInputFieldClasses = computed(() => ({
     outline: none;
     width: 100%;
     padding: calc(var(--gutter) * 1.5) calc(var(--gutter) * 3);
-    background-color: var(--color-neutral-100);
+    background-color: hsl(var(--color-neutral-100));
     border-radius: var(--border-radius-s);
     font-size: var(--text-size-s);
     line-height: var(--text-line-height-s);
 
     &--is-error {
-      outline: 1px solid var(--color-red-700);
+      outline: 1px solid hsl(var(--color-red-700));
     }
 
     &:focus:not(&--is-error) {
-      outline: 1px solid var(--color-neutral-300);
+      outline: 1px solid hsl(var(--color-neutral-300));
     }
   }
 

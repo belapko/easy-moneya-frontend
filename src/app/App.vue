@@ -1,7 +1,7 @@
 <template>
   <AppHeader v-if="isHeaderVisible" />
 
-  <main>
+  <main class="app__main">
     <RouterView />
   </main>
 </template>
@@ -16,3 +16,10 @@ const route = useRoute();
 
 const isHeaderVisible = computed(() => route.name !== RouteName.AUTH);
 </script>
+
+<style scoped lang="scss">
+.app__main {
+  padding-left: calc(var(--gutter) * 3);
+  padding-right: calc(var(--gutter) * 3);
+}
+</style>

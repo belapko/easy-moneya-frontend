@@ -11,20 +11,24 @@
     />
 
     <form class="transaction-form__controls">
-      <UiInput
-        v-model="sum"
-        label="Сумма, ₽"
-        type="number"
-        placeholder="1234.89"
-        :isError="false"
-      />
+      <div class="transaction-form__fields">
+        <UiInput
+          v-model="sum"
+          class="transaction-form__field"
+          label="Сумма, ₽"
+          type="number"
+          placeholder="1234.89"
+          :isError="false"
+        />
 
-      <UiSelect
-        v-model="categoryId"
-        label="Категория"
-        placeholder="Выберите категорию"
-        :options="categoryOptions"
-      />
+        <UiSelect
+          v-model="categoryId"
+          class="transaction-form__field"
+          label="Категория"
+          placeholder="Выберите категорию"
+          :options="categoryOptions"
+        />
+      </div>
 
       <UiButton :disabled="isButtonDisabled">
         Добавить
@@ -88,21 +92,24 @@ watch(activeCategoryKind, async (kind) => {
 
 <style scoped lang="scss">
 .transaction-form {
-  width: min(100%, 24rem);
+  width: min(100%, 32rem);
   padding: calc(var(--gutter) * 10) calc(var(--gutter) * 8);
-  background-color: var(--color-white);
+  background-color: hsl(var(--color-white));
   border-radius: var(--border-radius-m);
-  box-shadow: 0 5px 10px 2px var(--color-neutral-200);
+  box-shadow: 0 5px 10px 2px hsl(var(--color-neutral-200));
 
   &__title {
     font-size: var(--text-size-xxl);
     line-height: var(--text-line-height-xxl);
-    color: var(--color-neutral-700);
+    color: hsl(var(--color-neutral-700));
     text-align: center;
   }
 
   &__tabs {
     margin-top: calc(var(--gutter) * 3);
+    margin-left: auto;
+    margin-right: auto;
+    width: min(100%, 21rem);
   }
 
   &__controls {
@@ -110,6 +117,29 @@ watch(activeCategoryKind, async (kind) => {
     display: flex;
     flex-direction: column;
     row-gap: calc(var(--gutter) * 2);
+  }
+
+  &__fields {
+    display: flex;
+    width: 100%;
+    column-gap: calc(var(--gutter) * 2);
+  }
+
+  &__field {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .transaction-form {
+    padding: calc(var(--gutter) * 6) calc(var(--gutter) * 4);
+
+    &__fields {
+      flex-direction: column;
+      row-gap: calc(var(--gutter) * 2);
+      column-gap: 0;
+    }
   }
 }
 </style>

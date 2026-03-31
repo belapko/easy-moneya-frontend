@@ -37,9 +37,9 @@ const activeTab = ref<AuthFormTypes>(AuthFormTypes.LOGIN);
 .auth-form {
   width: min(100%, 24rem);
   padding: calc(var(--gutter) * 10) calc(var(--gutter) * 8);
-  background-color: var(--color-white);
+  background-color: hsl(var(--color-white));
   border-radius: var(--border-radius-m);
-  box-shadow: 0 5px 10px 2px var(--color-neutral-200);
+  box-shadow: 0 5px 10px 2px hsl(var(--color-neutral-200));
 
   &__content {
     margin-top: calc(var(--gutter) * 6);

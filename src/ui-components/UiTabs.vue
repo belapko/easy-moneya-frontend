@@ -48,11 +48,11 @@ const uiTabsTabStyles = (tabValue: string, tabActiveBackgroundColor?: string, ta
 
   return {
     'background-color': tabActiveBackgroundColor?.startsWith('--')
-      ? `var(${tabActiveBackgroundColor})`
-      : tabActiveBackgroundColor ?? 'var(--color-white)',
+      ? `hsl(var(${tabActiveBackgroundColor}))`
+      : tabActiveBackgroundColor ?? 'hsl(var(--color-white))',
     'color': tabActiveTextColor?.startsWith('--')
-      ? `var(${tabActiveTextColor})`
-      : tabActiveTextColor ?? 'var(--color-black)',
+      ? `hsl(var(${tabActiveTextColor}))`
+      : tabActiveTextColor ?? 'hsl(var(--color-black))',
   };
 };
 </script>
@@ -62,12 +62,13 @@ const uiTabsTabStyles = (tabValue: string, tabActiveBackgroundColor?: string, ta
   display: flex;
   padding: var(--gutter);
   gap: calc(var(--gutter) / 2);
-  background-color: var(--color-neutral-200);
+  background-color: hsl(var(--color-neutral-200));
   border-radius: var(--border-radius-l);
 
   &__tab {
     display: flex;
     align-items: center;
+    justify-content: center;
     column-gap: var(--gutter);
     flex-grow: 1;
     flex-basis: 0;
@@ -80,7 +81,7 @@ const uiTabsTabStyles = (tabValue: string, tabActiveBackgroundColor?: string, ta
       box-shadow 0.1s ease;
 
     &--is-active {
-      box-shadow: 0 2px 4px 1px var(--color-neutral-300);
+      box-shadow: 0 2px 4px 1px hsl(var(--color-neutral-300));
     }
   }
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="auth-page">
     <IconWallet
-      color="white"
       size="64"
       class="auth-page__icon"
     />
@@ -33,7 +32,8 @@ import AuthForm from '@/components/AuthForm/AuthForm.vue';
   &__icon {
     padding: calc(var(--gutter) * 3);
     border-radius: var(--border-radius-m);
-    background-color: var(--color-black);
+    color: hsl(var(--color-white));
+    background-color: hsl(var(--color-black));
   }
 
   &__title {
@@ -45,7 +45,7 @@ import AuthForm from '@/components/AuthForm/AuthForm.vue';
     margin-top: calc(var(--gutter) * 4);
     font-size: var(--text-size-s);
     line-height: var(--text-line-height-s);
-    color: var(--color-neutral-500);
+    color: hsl(var(--color-neutral-500));
     font-weight: 400;
   }
 

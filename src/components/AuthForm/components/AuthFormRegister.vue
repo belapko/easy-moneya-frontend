@@ -129,12 +129,12 @@ const handleSubmit = async () => {
   }
 
   &__rule {
-    color: var(--color-neutral-400);
+    color: hsl(var(--color-neutral-400));
     font-size: var(--text-size-xs);
     line-height: var(--text-line-height-xs);
 
     &--is-valid {
-      color: var(--color-green-600);
+      color: hsl(var(--color-green-600));
     }
   }
 }
