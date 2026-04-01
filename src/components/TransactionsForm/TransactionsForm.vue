@@ -132,6 +132,7 @@ const handleAmountInput = (event: Event) => {
 
 const handleSubmit = async () => {
   const occurredAtDate = toDate(occurredAt.value);
+  const normalizedAmount = amount.value.replace(',', '.');
 
   if (isButtonDisabled.value || occurredAtDate === null) {
     return;
@@ -140,7 +141,7 @@ const handleSubmit = async () => {
   await createTransaction({
     kind: activeTab.value,
     categoryId: categoryId.value,
-    amount: amount.value,
+    amount: normalizedAmount,
     description: description.value,
     occurredAt: occurredAtDate,
   });

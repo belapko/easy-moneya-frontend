@@ -7,14 +7,20 @@
       />
 
       <div class="transaction-card__about">
-        <span class="transaction-card__category">Продукты</span>
+<!--        TODO: category name from backend-->
+        <span class="transaction-card__category">{{ transaction.categoryId }}</span>
 
         <span class="transaction-card__description">{{ transaction.description }}</span>
       </div>
     </div>
 
     <div class="transaction-card__about">
-      <span class="transaction-card__amount">{{ formattedAmount }}</span>
+      <span
+        class="transaction-card__amount"
+        :class="transactionCardAmountClasses"
+      >
+        {{ formattedAmount }}
+      </span>
 
       <span class="transaction-card__date">{{ formattedOccurredAt }}</span>
     </div>
@@ -40,6 +46,8 @@ const formattedAmount = computed(
 );
 
 const formattedOccurredAt = computed(() => formatDateTime(transaction.occurredAt, 'ru-RU'));
+
+const transactionCardAmountClasses = computed(() => [`transaction-card__amount--${transaction.kind}`]);
 </script>
 
 <style scoped lang="scss">
@@ -81,6 +89,14 @@ const formattedOccurredAt = computed(() => formatDateTime(transaction.occurredAt
     font-weight: 500;
     font-size: var(--text-size-xl);
     line-height: var(--text-line-height-xl);
+
+    &--expense {
+      color: hsl(var(--color-red-600));
+    }
+
+    &--income {
+      color: hsl(var(--color-green-600));
+    }
   }
 
   &__date {
