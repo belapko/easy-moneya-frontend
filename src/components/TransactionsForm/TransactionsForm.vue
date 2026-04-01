@@ -10,33 +10,45 @@
       class="transactions-form__tabs"
     />
 
-    <form class="transactions-form__controls">
+    <form
+      @submit.prevent="handleSubmit"
+      class="transactions-form__controls"
+    >
       <div class="transactions-form__fields">
         <UiInput
           v-model="amount"
-          class="transactions-form__field"
+          @input="handleAmountInput"
           label="Сумма, ₽"
-          type="number"
-          placeholder="1234.89"
+          type="text"
+          inputmode="decimal"
+          placeholder="1234,89"
           :isError="false"
+          class="transactions-form__field"
         />
 
         <UiSelect
           v-model="categoryId"
-          class="transactions-form__field"
           label="Категория"
           placeholder="Выберите категорию"
           :options="categoryOptions"
+          class="transactions-form__field"
         />
       </div>
 
       <UiInput
         v-model="description"
-        class="transactions-form__field"
         label="Описание"
         type="text"
         placeholder="Чипсы"
         :isError="false"
+        class="transactions-form__field"
+      />
+
+      <UiInput
+        v-model="occurredAt"
+        type="datetime-local"
+        :isError="false"
+        class="transactions-form__field"
       />
 
       <UiButton
@@ -60,6 +72,8 @@ import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import UiSelect from '@/ui-components/UiSelect.vue';
 import type { UiSelectSelectOption } from '@/types/ui-components.ts';
+import { createTransaction } from '@/api/transactions.ts';
+import { formatDateTimeForInput, toDate } from '@/utils/date.ts';
 
 const CATEGORY_KIND_BY_TRANSACTION_KIND: Record<TransactionKind, CategoryKind> = {
   [TransactionKind.EXPENSE]: CategoryKind.EXPENSE,
@@ -86,6 +100,7 @@ const TABS = {
 const activeTab = ref<TransactionKind>(TransactionKind.EXPENSE);
 const amount = ref<string>('');
 const description = ref<string>('');
+const occurredAt = ref(formatDateTimeForInput(new Date()));
 const categoryId = ref<string>('');
 const categories = ref<Category[]>([]);
 
@@ -96,10 +111,43 @@ const categoryOptions = computed<UiSelectSelectOption[]>(() => categories.value.
   value: category.id,
 })));
 
-const isButtonDisabled = computed(() => !amount.value || !categoryId.value);
+const isAmountValid = computed(() => /^\d+(?:[.,]\d{1,2})?$/.test(amount.value));
+
+const isButtonDisabled = computed(() => !isAmountValid.value || !categoryId.value || !occurredAt.value);
+
+const handleAmountInput = (event: Event) => {
+  const target = event.target;
+
+  if (!(target instanceof HTMLInputElement)) {
+    return;
+  }
+
+  amount.value = target.value
+    .replace(/[^\d.,]/g, '')
+    .replace(/^([.,])/, '0$1')
+    .replace(/^(\d+[.,]?\d{0,2}).*$/, '$1');
+
+  target.value = amount.value;
+};
+
+const handleSubmit = async () => {
+  const occurredAtDate = toDate(occurredAt.value);
+
+  if (isButtonDisabled.value || occurredAtDate === null) {
+    return;
+  }
+
+  await createTransaction({
+    kind: activeTab.value,
+    categoryId: categoryId.value,
+    amount: amount.value,
+    description: description.value,
+    occurredAt: occurredAtDate,
+  });
+};
 
 watch(activeCategoryKind, async (kind) => {
-  categories.value = await getCategories({ kind });
+  categories.value = await getCategories({ kind, includeArchived: false });
   categoryId.value = categories.value[0]?.id ?? '';
 }, { immediate: true });
 </script>

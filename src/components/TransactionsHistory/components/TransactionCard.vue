@@ -9,20 +9,37 @@
       <div class="transaction-card__about">
         <span class="transaction-card__category">Продукты</span>
 
-        <span class="transaction-card__description">Энергетик, чипсы</span>
+        <span class="transaction-card__description">{{ transaction.description }}</span>
       </div>
     </div>
 
     <div class="transaction-card__about">
-      <span class="transaction-card__amount">-1 250 ₽</span>
+      <span class="transaction-card__amount">{{ formattedAmount }}</span>
 
-      <span class="transaction-card__date">20 мар. 2026, 13:30</span>
+      <span class="transaction-card__date">{{ formattedOccurredAt }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { IconCurrencyRubel } from '@tabler/icons-vue';
+import { type Transaction, TransactionKind } from '@/types/transactions.ts';
+import { computed } from 'vue';
+import { formatDateTime } from '@/utils/date.ts';
+
+const {
+  transaction,
+} = defineProps<{
+  transaction: Transaction,
+}>();
+
+const formattedAmount = computed(
+  () => transaction.kind === TransactionKind.EXPENSE
+    ? `-${transaction.amount} ₽`
+    : `+${transaction.amount} ₽`
+);
+
+const formattedOccurredAt = computed(() => formatDateTime(transaction.occurredAt, 'ru-RU'));
 </script>
 
 <style scoped lang="scss">

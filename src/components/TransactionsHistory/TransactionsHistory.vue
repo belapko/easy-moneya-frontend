@@ -12,17 +12,22 @@
     </div>
 
     <div class="transactions-history__body">
-      <TransactionCard />
+      <TransactionCard
+        v-for="transaction in allTransactions"
+        :key="transaction.id"
+        :transaction="transaction"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import UiSelect from '@/ui-components/UiSelect.vue';
-import { TransactionFilter } from '@/types/transactions.ts';
-import { ref } from 'vue';
+import { type Transaction, TransactionFilter } from '@/types/transactions.ts';
+import { onMounted, ref } from 'vue';
 import type { UiSelectSelectOption } from '@/types/ui-components.ts';
 import TransactionCard from '@/components/TransactionsHistory/components/TransactionCard.vue';
+import { getTransactions } from '@/api/transactions.ts';
 
 const transactionFilterOptions: UiSelectSelectOption[] = [
   {
@@ -39,7 +44,13 @@ const transactionFilterOptions: UiSelectSelectOption[] = [
   },
 ];
 
+const allTransactions = ref<Transaction[]>([]);
+
 const transactionKind = ref(TransactionFilter.ALL);
+
+onMounted(async () => {
+  allTransactions.value = await getTransactions();
+});
 </script>
 
 <style scoped lang="scss">
