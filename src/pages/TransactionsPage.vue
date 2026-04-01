@@ -1,20 +1,30 @@
 <template>
   <div class="transactions-page">
-    <TransactionForm class="transactions-page__form" />
+    <TransactionsForm class="transactions-page__form" />
+
+    <TransactionsHistory class="transactions-page__history"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import TransactionForm from '@/components/TransactionForm/TransactionForm.vue';
+import TransactionsForm from '@/components/TransactionsForm/TransactionsForm.vue';
+import TransactionsHistory from '@/components/TransactionsHistory/TransactionsHistory.vue';
 </script>
 
 <style scoped lang="scss">
 .transactions-page {
-  display: flex;
-  justify-content: center;
-
   &__form {
+    width: min(100%, 32rem);
     margin-top: calc(var(--gutter) * 10);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__history {
+    width: min(100%, 48rem);
+    margin-top: calc(var(--gutter) * 10);
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 </style>

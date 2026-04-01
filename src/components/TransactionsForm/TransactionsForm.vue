@@ -1,20 +1,20 @@
 <template>
-  <div class="transaction-form">
-    <p class="transaction-form__title">
+  <div class="transactions-form">
+    <p class="transactions-form__title">
       {{ formTitle }}
     </p>
 
     <UiTabs
       :tabs="TABS"
       v-model="activeTab"
-      class="transaction-form__tabs"
+      class="transactions-form__tabs"
     />
 
-    <form class="transaction-form__controls">
-      <div class="transaction-form__fields">
+    <form class="transactions-form__controls">
+      <div class="transactions-form__fields">
         <UiInput
           v-model="sum"
-          class="transaction-form__field"
+          class="transactions-form__field"
           label="Сумма, ₽"
           type="number"
           placeholder="1234.89"
@@ -23,14 +23,17 @@
 
         <UiSelect
           v-model="categoryId"
-          class="transaction-form__field"
+          class="transactions-form__field"
           label="Категория"
           placeholder="Выберите категорию"
           :options="categoryOptions"
         />
       </div>
 
-      <UiButton :disabled="isButtonDisabled">
+      <UiButton
+        :disabled="isButtonDisabled"
+        class="transactions-form__button"
+      >
         Добавить
       </UiButton>
     </form>
@@ -47,6 +50,7 @@ import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-vue';
 import UiInput from '@/ui-components/UiInput.vue';
 import UiButton from '@/ui-components/UiButton.vue';
 import UiSelect from '@/ui-components/UiSelect.vue';
+import type { UiSelectSelectOption } from '@/types/ui-components.ts';
 
 const CATEGORY_KIND_BY_TRANSACTION_KIND: Record<TransactionKind, CategoryKind> = {
   [TransactionKind.EXPENSE]: CategoryKind.EXPENSE,
@@ -77,7 +81,7 @@ const categories = ref<Category[]>([]);
 
 const formTitle = computed(() => `Добавить ${TABS[activeTab.value].description}`);
 const activeCategoryKind = computed(() => CATEGORY_KIND_BY_TRANSACTION_KIND[activeTab.value]);
-const categoryOptions = computed(() => categories.value.map((category) => ({
+const categoryOptions = computed<UiSelectSelectOption[]>(() => categories.value.map((category) => ({
   label: category.name,
   value: category.id,
 })));
@@ -91,12 +95,15 @@ watch(activeCategoryKind, async (kind) => {
 </script>
 
 <style scoped lang="scss">
-.transaction-form {
-  width: min(100%, 32rem);
+.transactions-form {
   padding: calc(var(--gutter) * 10) calc(var(--gutter) * 8);
   background-color: hsl(var(--color-white));
   border-radius: var(--border-radius-m);
   box-shadow: 0 5px 10px 2px hsl(var(--color-neutral-200));
+
+  @media (max-width: 640px) {
+    padding: calc(var(--gutter) * 6) calc(var(--gutter) * 4);
+  }
 
   &__title {
     font-size: var(--text-size-xxl);
@@ -123,23 +130,21 @@ watch(activeCategoryKind, async (kind) => {
     display: flex;
     width: 100%;
     column-gap: calc(var(--gutter) * 2);
-  }
 
-  &__field {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-}
-
-@media (max-width: 640px) {
-  .transaction-form {
-    padding: calc(var(--gutter) * 6) calc(var(--gutter) * 4);
-
-    &__fields {
+    @media (max-width: 640px) {
       flex-direction: column;
       row-gap: calc(var(--gutter) * 2);
       column-gap: 0;
     }
+  }
+
+  &__field {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+
+  &__button {
+    margin-top: var(--gutter);
   }
 }
 </style>

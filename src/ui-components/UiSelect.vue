@@ -23,6 +23,7 @@
         aria-haspopup="listbox"
         @click="toggleOptions"
         class="ui-select__trigger"
+        :class="uiSelectTriggerClasses"
       >
         <span>{{ selectedLabel }}</span>
 
@@ -66,24 +67,22 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, useAttrs, useId, useTemplateRef } from 'vue';
 import { IconChevronDown } from '@tabler/icons-vue';
+import type { UiSelectSelectOption } from '@/types/ui-components.ts';
 
 defineOptions({
   inheritAttrs: false,
 });
 
-type SelectOption = {
-  label: string;
-  value: string;
-};
-
 const {
-  label = undefined,
   options,
+  label = undefined,
   placeholder = '',
+  bordered = false
 } = defineProps<{
+  options: UiSelectSelectOption[];
   label?: string;
-  options: SelectOption[];
   placeholder?: string;
+  bordered?: boolean;
 }>();
 
 const modelValue = defineModel<string>({ required: true });
@@ -171,6 +170,9 @@ const uiSelectIconClasses = computed(() => ({
 const uiSelectOptionClasses = (optionValue: string) => ({
   'ui-select__option--is-selected': optionValue === modelValue.value
 });
+const uiSelectTriggerClasses = computed(() => ({
+  'ui-select__trigger--is-bordered': bordered,
+}));
 
 onMounted(() => {
   document.addEventListener('pointerdown', handleClickOutside);
@@ -189,9 +191,12 @@ onBeforeUnmount(() => {
     line-height: var(--text-line-height-s);
   }
 
+  &__label + &__control {
+    margin-top: var(--gutter);
+  }
+
   &__control {
     position: relative;
-    margin-top: var(--gutter);
   }
 
   &__trigger {
@@ -213,6 +218,10 @@ onBeforeUnmount(() => {
       cursor: not-allowed;
       opacity: 0.6;
     }
+
+    &--is-bordered {
+      border: 1px solid hsl(var(--color-neutral-400));
+    }
   }
 
   &__icon {
@@ -228,8 +237,8 @@ onBeforeUnmount(() => {
     position: absolute;
     left: 0;
     right: 0;
-    top: 100%;
-    z-index: 10;
+    top: calc(100% + var(--gutter));
+    z-index: 25;
     background-color: hsl(var(--color-white));
     border-radius: var(--border-radius-s);
     box-shadow: 0 10px 20px -12px hsl(var(--color-neutral-500));
