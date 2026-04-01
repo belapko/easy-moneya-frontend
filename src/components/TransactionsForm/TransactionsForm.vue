@@ -13,7 +13,7 @@
     <form class="transactions-form__controls">
       <div class="transactions-form__fields">
         <UiInput
-          v-model="sum"
+          v-model="amount"
           class="transactions-form__field"
           label="Сумма, ₽"
           type="number"
@@ -29,6 +29,15 @@
           :options="categoryOptions"
         />
       </div>
+
+      <UiInput
+        v-model="description"
+        class="transactions-form__field"
+        label="Описание"
+        type="text"
+        placeholder="Чипсы"
+        :isError="false"
+      />
 
       <UiButton
         :disabled="isButtonDisabled"
@@ -75,7 +84,8 @@ const TABS = {
 };
 
 const activeTab = ref<TransactionKind>(TransactionKind.EXPENSE);
-const sum = ref<string>('');
+const amount = ref<string>('');
+const description = ref<string>('');
 const categoryId = ref<string>('');
 const categories = ref<Category[]>([]);
 
@@ -86,7 +96,7 @@ const categoryOptions = computed<UiSelectSelectOption[]>(() => categories.value.
   value: category.id,
 })));
 
-const isButtonDisabled = computed(() => !sum.value || !categoryId.value);
+const isButtonDisabled = computed(() => !amount.value || !categoryId.value);
 
 watch(activeCategoryKind, async (kind) => {
   categories.value = await getCategories({ kind });

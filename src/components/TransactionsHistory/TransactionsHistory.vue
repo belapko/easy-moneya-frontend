@@ -10,6 +10,10 @@
         class="transactions-history__select"
       />
     </div>
+
+    <div class="transactions-history__body">
+      <TransactionCard />
+    </div>
   </div>
 </template>
 
@@ -18,6 +22,7 @@ import UiSelect from '@/ui-components/UiSelect.vue';
 import { TransactionFilter } from '@/types/transactions.ts';
 import { ref } from 'vue';
 import type { UiSelectSelectOption } from '@/types/ui-components.ts';
+import TransactionCard from '@/components/TransactionsHistory/components/TransactionCard.vue';
 
 const transactionFilterOptions: UiSelectSelectOption[] = [
   {
