@@ -20,4 +20,10 @@ export interface Transaction {
   occurredAt: Date;
   createdAt: Date;
   updatedAt: Date;
+  category: {
+    color: Category['color'];
+    id: Category['id'];
+    iconKey: Category['iconKey'];
+    name: Category['name'];
+  }
 }

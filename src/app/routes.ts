@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import AuthPage from '@/pages/AuthPage.vue';
 import TransactionsPage from '@/pages/TransactionsPage.vue';
-import Categories from '@/pages/Categories.vue';
+import CategoriesPage from '@/pages/CategoriesPage.vue';
 import Profile from '@/pages/Profile.vue';
 import { RouteName } from '@/constants/RouteName.ts';
 import { RouteMeta } from '@/constants/RouteMeta.ts';
@@ -27,7 +27,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/categories',
     name: RouteName.CATEGORIES,
-    component: Categories,
+    component: CategoriesPage,
     meta: {
       [RouteMeta.ONLY_AUTHORIZED]: true,
     },

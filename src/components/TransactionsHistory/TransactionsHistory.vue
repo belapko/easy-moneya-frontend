@@ -68,7 +68,7 @@ const currentTransactions = computed(() => {
 });
 
 onMounted(async () => {
-  allTransactions.value = await getTransactions();
+  allTransactions.value = (await getTransactions()).items;
 });
 </script>
 

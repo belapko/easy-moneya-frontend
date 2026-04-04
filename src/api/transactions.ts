@@ -15,6 +15,8 @@ interface TransactionsQueryParams {
   categoryId?: Category['id'];
   occurredFrom?: Date;
   occurredTo?: Date;
+  limit?: number;
+  cursor?: string;
 }
 
 export async function getTransactions(queryParams?: TransactionsQueryParams) {
@@ -36,10 +38,18 @@ export async function getTransactions(queryParams?: TransactionsQueryParams) {
     searchParams.set('occurredTo', queryParams.occurredTo.toISOString());
   }
 
+  if (queryParams?.limit !== undefined) {
+    searchParams.set('limit', queryParams.limit.toString());
+  }
+
+  if (queryParams?.cursor !== undefined) {
+    searchParams.set('cursor', queryParams.cursor);
+  }
+
   const queryString = searchParams.toString();
   const url = queryString ? `/api/transactions?${queryString}` : '/api/transactions';
 
-  return http<Transaction[]>(
+  return http<{items: Transaction[], nextCursor: number | null}>(
     url,
     { method: 'GET' }
   );

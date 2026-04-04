@@ -1,14 +1,15 @@
 <template>
   <div class="transaction-card">
     <div class="transaction-card__left">
-      <IconCurrencyRubel
+      <AsyncTablerIcon
+        :iconKey="transaction.category.iconKey"
         :size="32"
         class="transaction-card__icon"
+        :style="transactionCardIconStyles"
       />
 
       <div class="transaction-card__about">
-<!--        TODO: category name from backend-->
-        <span class="transaction-card__category">{{ transaction.categoryId }}</span>
+        <span class="transaction-card__category">{{ transaction.category.name }}</span>
 
         <span class="transaction-card__description">{{ transaction.description }}</span>
       </div>
@@ -28,10 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { IconCurrencyRubel } from '@tabler/icons-vue';
-import { type Transaction, TransactionKind } from '@/types/transactions.ts';
 import { computed } from 'vue';
+import { type Transaction, TransactionKind } from '@/types/transactions.ts';
 import { formatDateTime } from '@/utils/date.ts';
+import AsyncTablerIcon from '@/components/AsyncTablerIcon/AsyncTablerIcon.vue';
 
 const {
   transaction,
@@ -47,6 +48,7 @@ const formattedAmount = computed(
 
 const formattedOccurredAt = computed(() => formatDateTime(transaction.occurredAt, 'ru-RU'));
 
+const transactionCardIconStyles = computed(() => ({ 'background-color': transaction.category.color }));
 const transactionCardAmountClasses = computed(() => [`transaction-card__amount--${transaction.kind}`]);
 </script>
 
@@ -66,15 +68,16 @@ const transactionCardAmountClasses = computed(() => [`transaction-card__amount--
   }
 
   &__icon {
+    min-width: 32px;
+    color: hsl(var(--color-white));
     padding: var(--gutter);
-    background-color: green;
     border-radius: var(--border-radius-xs);
   }
 
   &__about {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
   }
 
   &__category {
@@ -82,10 +85,13 @@ const transactionCardAmountClasses = computed(() => [`transaction-card__amount--
   }
 
   &__description {
+    font-size: var(--text-size-s);
+    line-height: var(--text-line-height-s);
     color: hsl(var(--color-neutral-700));
   }
 
   &__amount {
+    text-align: end;
     font-weight: 500;
     font-size: var(--text-size-xl);
     line-height: var(--text-line-height-xl);
@@ -100,6 +106,8 @@ const transactionCardAmountClasses = computed(() => [`transaction-card__amount--
   }
 
   &__date {
+    text-align: end;
+    text-wrap: nowrap;
     font-weight: 300;
     font-size: var(--text-size-xs);
     line-height: var(--text-line-height-xs);

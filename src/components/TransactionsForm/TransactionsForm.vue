@@ -1,8 +1,8 @@
 <template>
   <div class="transactions-form">
-    <p class="transactions-form__title">
+    <h1 class="transactions-form__title">
       {{ formTitle }}
-    </p>
+    </h1>
 
     <UiTabs
       :tabs="TABS"
@@ -46,6 +46,7 @@
 
       <UiInput
         v-model="occurredAt"
+        label="Дата"
         type="datetime-local"
         :isError="false"
         class="transactions-form__field"
@@ -165,6 +166,7 @@ watch(activeCategoryKind, async (kind) => {
   }
 
   &__title {
+    font-weight: 400;
     font-size: var(--text-size-xxl);
     line-height: var(--text-line-height-xxl);
     color: hsl(var(--color-neutral-700));
@@ -172,7 +174,7 @@ watch(activeCategoryKind, async (kind) => {
   }
 
   &__tabs {
-    margin-top: calc(var(--gutter) * 3);
+    margin-top: calc(var(--gutter) * 5);
     margin-left: auto;
     margin-right: auto;
     width: min(100%, 21rem);

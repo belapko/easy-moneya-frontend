@@ -47,6 +47,18 @@
   --header-height: 64px;
 }
 
+@media (max-width: 640px) {
+  :root {
+    --text-size-xs: 12px;
+    --text-size-s: 13px;
+    --text-size-m: 15px;
+    --text-size-l: 16px;
+    --text-size-xl: 18px;
+    --text-size-xxl: 20px;
+    --text-size-xxxl: 24px;
+  }
+}
+
 body {
   min-height: 100dvh;
   color: hsl(var(--color-black));

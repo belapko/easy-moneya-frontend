@@ -6,8 +6,7 @@
 
 <style scoped lang="scss">
 .ui-button {
-  width: 100%;
-  padding: calc(var(--gutter) * 1.5) calc(var(--gutter) * 2);
+  padding: calc(var(--gutter) * 1.5) calc(var(--gutter) * 3);
   background-color: hsl(var(--color-black));
   color: hsl(var(--color-white));
   font-weight: 500;
